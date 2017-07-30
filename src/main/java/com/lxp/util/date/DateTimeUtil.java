@@ -7,7 +7,7 @@ import java.util.Date;
 public class DateTimeUtil {
 
     /**
-     * 获取今天的日期和时间
+     * 获取今天的日期和时间...
      * @param dateFormat
      * @return
      */
