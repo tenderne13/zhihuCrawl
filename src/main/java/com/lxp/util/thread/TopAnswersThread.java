@@ -9,6 +9,10 @@ import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class TopAnswersThread extends Thread{
 
@@ -52,6 +56,11 @@ public class TopAnswersThread extends Thread{
             if(entity!=null){
                 String result= EntityUtils.toString(entity,"UTF-8");
                 System.out.println(result);
+                Document document = Jsoup.parse(result);
+                Elements elements = document.select("div.zm-item");
+                for (Element ele : elements){
+                    System.out.println(ele.toString());
+                }
             }
 
 
