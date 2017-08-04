@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -17,17 +18,13 @@ public class LoginController {
 
     @RequestMapping(value = "login",method = RequestMethod.GET)
     public String login(HttpServletRequest request){
-        String name = request.getParameter("userName");
-        Enumeration names = request.getParameterNames();
-        System.out.println(names);
-        System.out.println("name:"+name);
         return "login";
     }
 
 
     @RequestMapping(value = "doLogin",method = RequestMethod.POST)
     @ResponseBody
-    public String doLogin(String username, String password){
+    public String doLogin(String username, String password, HttpSession httpSession){
         System.out.println("用户名为:"+username);
         System.out.println("密码为:"+password);
         Map<String,String> params;
@@ -50,7 +47,20 @@ public class LoginController {
         String url="https://passport.weibo.cn/sso/login";
         String result = LoginUtil.login(url, params);
 
-
+        httpSession.setAttribute("userId",username);
         return result;
+    }
+
+
+    @RequestMapping(value = "userData")
+    @ResponseBody
+    public String userData(){
+        String url="https://m.weibo.cn/home/me?format=cards";
+        return LoginUtil.homeData(url,null);
+    }
+
+    @RequestMapping(value = "index")
+    public String index(){
+        return "home";
     }
 }

@@ -2,10 +2,12 @@ package com.lxp.util.weibo;
 
 
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -21,6 +23,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class LoginUtil {
+
+    public static StringBuffer cookieHeader=new StringBuffer();
 
     public static String login(String url,Map<String, String> params){
         HttpClient httpClient = HttpClients.createDefault();
@@ -48,13 +52,43 @@ public class LoginUtil {
             HttpResponse response=httpClient.execute(httpPost);
             Header[] headers = response.getAllHeaders();
             for( Header header :headers){
-                System.out.println(header.getName()+":"+header.getValue());
+                //System.out.println(header.getName()+":"+header.getValue());
+                if(header.getName().contains("Set-Cookie")){
+                    String hea=header.getValue().split(";")[0]+";";
+                    cookieHeader.append(hea);
+                }
             }
+            System.out.println("最后响应的cookie为："+cookieHeader.toString());
             result= EntityUtils.toString(response.getEntity(),"UTF-8");
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println("响应的内容为:"+result);
         return result;
+    }
+
+
+    public static String homeData(String url,Map<String, String> params){
+        HttpClient httpClient = HttpClients.createDefault();
+        if(params!=null){
+            url+="?";
+            Set<String> keySet = params.keySet();
+            for(String key : keySet){
+                url+=key+"="+params.get(key)+"&";
+            }
+        }
+        HttpGet httpGet=new HttpGet(url);
+        httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0");
+        httpGet.setHeader("Cookie",cookieHeader.toString());
+
+        try {
+            HttpResponse response = httpClient.execute(httpGet);
+            HttpEntity entity = response.getEntity();
+            String result = EntityUtils.toString(entity, "UTF-8");
+            return result;
+        } catch (IOException e) {
+            System.out.println("异常:"+e);
+        }
+        return "";
     }
 }

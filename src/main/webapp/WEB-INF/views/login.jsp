@@ -31,7 +31,14 @@
                     username:username,
                     password:password
                 },function(data){
-                    layer.alert(data);
+                    data=JSON.parse(data);
+                    var resultCode=data.retcode;
+                    if(resultCode==20000000){
+                        layer.alert("登录成功！");
+                        window.location.href="${ctx}/index";
+                    }else{
+                        layer.alert("登录失败");
+                    }
                 }
 
             );
