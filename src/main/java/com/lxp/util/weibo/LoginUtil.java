@@ -17,10 +17,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class LoginUtil {
 
@@ -90,5 +87,20 @@ public class LoginUtil {
             System.out.println("异常:"+e);
         }
         return "";
+    }
+
+
+    public static void main (String ar[]){
+        List<String> list=new ArrayList<String>();
+        list.add("lxp");
+        list.add("jxq");
+        list.add("zyq");
+        System.out.println(list);
+        String jxq2 = list.set(1, "jxq2");
+        System.out.println("旧数据为"+jxq2);
+        System.out.println(list);
+
+        List<String> list1=new LinkedList<String>();
+        list1.add("");
     }
 }
