@@ -2,10 +2,17 @@ package com.lxp.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lxp.mapper.ArticleMapper;
+import com.lxp.mapper.PersonMapper;
 import com.lxp.mapper.UserMapper;
+import com.lxp.util.es.BatchIndexThread;
 import com.lxp.util.thread.TopAnswerThread;
 import com.lxp.vo.Article;
+import com.lxp.vo.Person;
 import org.apache.http.client.methods.HttpGet;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,6 +28,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 
 @Controller
@@ -30,10 +39,31 @@ public class TestController {
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
 
+    @Autowired
+    public PersonMapper personMapper;
+
     @RequestMapping("msg")
     @ResponseBody
     public String msg(){
-        return "你好啊，这里是testController";
+        Settings settings=Settings.settingsBuilder().put("cluster.name","lxp-app").build();
+        Client client=null;
+        List<String> userCodes=new ArrayList<String>();
+        userCodes.add("110229002004");
+        userCodes.add("110229002010");
+        try {
+            client = TransportClient.builder().settings(settings).build().addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("127.0.0.1"),9300));
+            //new BatchIndexThread(personMapper,client,"110106009023").start();
+            for(String s : userCodes){
+                new BatchIndexThread(personMapper,client,s).start();
+            }
+            return "success";
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            return "error";
+        }
+
+
+
     }
 
     @RequestMapping("topAnswers")
