@@ -204,7 +204,7 @@ public class EsSearch {
     public void ThreadTest(){
         PersonMapper personMaper = (PersonMapper) applicationContext.getBean("personMapper");
         String userCode="110106009023";
-        new BatchIndexThread(personMaper,client,userCode).start();
+        new PersonIndexThread(personMaper,client,userCode).start();
         System.out.println("---------------------------");
     }
 }

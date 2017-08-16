@@ -1,28 +1,22 @@
 package com.lxp.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.lxp.mapper.ArticleMapper;
+import com.lxp.mapper.InstallationMapper;
 import com.lxp.mapper.PersonMapper;
 import com.lxp.mapper.UserMapper;
-import com.lxp.util.es.BatchIndexThread;
-import com.lxp.util.thread.TopAnswerThread;
+import com.lxp.util.es.EsClient;
+import com.lxp.util.es.InstallationIndexThread;
+import com.lxp.util.es.PersonIndexThread;
 import com.lxp.vo.Article;
-import com.lxp.vo.Person;
 import org.apache.http.client.methods.HttpGet;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.junit.Before;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Controller
 public class TestController {
@@ -41,6 +37,40 @@ public class TestController {
 
     @Autowired
     public PersonMapper personMapper;
+
+    @Autowired
+    public InstallationMapper installationMapper;
+
+
+    @RequestMapping("es")
+    @ResponseBody
+    public String es() throws InterruptedException {
+        long start = System.currentTimeMillis();
+        Client client = EsClient.getInstance().getClient();
+        List<String> userCodes=new ArrayList<String>();
+        userCodes.add("110229002004");
+        userCodes.add("110229002010");
+        //userCodes.add("110106009023");
+
+
+        ExecutorService executorService = Executors.newFixedThreadPool(userCodes.size()*2);
+        for(String s : userCodes){
+            executorService.execute(new PersonIndexThread(personMapper,client,s));
+            executorService.execute(new InstallationIndexThread(installationMapper,client,s));
+        }
+        executorService.shutdown();
+        while (true){
+            if(executorService.isTerminated()){
+                long end=System.currentTimeMillis();
+                System.out.println("索引同步完毕，用时:"+(end-start)/1000+"秒");
+                return "索引同步完毕，用时:"+(end-start)/1000+"秒";
+            }
+
+            //每隔200毫秒检测一下所有线程是否执行完。
+            Thread.sleep(200);
+        }
+    }
+
 
     @RequestMapping("msg")
     @ResponseBody
@@ -54,7 +84,7 @@ public class TestController {
             client = TransportClient.builder().settings(settings).build().addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("127.0.0.1"),9300));
             //new BatchIndexThread(personMapper,client,"110106009023").start();
             for(String s : userCodes){
-                new BatchIndexThread(personMapper,client,s).start();
+                new PersonIndexThread(personMapper,client,s).start();
             }
             return "success";
         } catch (UnknownHostException e) {

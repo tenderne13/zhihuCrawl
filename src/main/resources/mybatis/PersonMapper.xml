@@ -27,7 +27,11 @@
         t1.id id,SUBSTR(t1.id,1,24) as houseId,t1.Name name,t1.Sex sex,t1.IdCard
         IdCard,t2.ObjectId objectId,t2.Id BuildingId,t2.BuildingName
         BuildingName,
-        t1.telephone telephone,t1.LiveAddress1 LiveAddress1
+        t1.telephone telephone,t1.LiveAddress1 LiveAddress1,
+        t1.LiveAddress2 LiveAddress2,
+        t1.LiveAddress3 LiveAddress3,
+        t1.LiveAddress4 LiveAddress4,
+        t1.LiveAddress5 LiveAddress5
         FROM
         (
         (SELECT
