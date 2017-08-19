@@ -29,7 +29,7 @@ public class InstallationIndexThread extends Thread{
     private Map<String,Object> parmap;
     private ConcurrentLinkedQueue<String> queue;
     private String userCode;
-    static AtomicBoolean isDone = new AtomicBoolean(false);
+    private AtomicBoolean isDone = new AtomicBoolean(false);
 
     public InstallationIndexThread(InstallationMapper installationMapper, Client client, String userCode){
         this.installationMapper=installationMapper;

@@ -27,7 +27,7 @@ public class PersonIndexThread extends Thread{
     private Map<String,Object> parmap;
     private ConcurrentLinkedQueue<String> queue;
     private String userCode;
-    static AtomicBoolean isDone = new AtomicBoolean(false);
+    private AtomicBoolean isDone = new AtomicBoolean(false);
 
     public PersonIndexThread(PersonMapper personMapper, Client client, String userCode){
         this.personMapper=personMapper;
@@ -89,7 +89,7 @@ public class PersonIndexThread extends Thread{
                 if(queue.isEmpty() && isDone.get()){
                     processor.flush();
                     processor.close();
-                    System.out.println("-----------------创建索引完毕----------------------");
+                    System.out.println("-----------------人员索引创建完毕----------------------");
                     break;
                 }
             }
