@@ -1,7 +1,31 @@
 package com.lxp.util.weibo;
 
+import java.io.IOException;
+
 public class Lootery {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        StringBuffer buffer = new StringBuffer();
+//        long start = System.currentTimeMillis();
+//        for(int i=0;i<3000000;i++){
+//            buffer.append(getLooteryNumber()+"\n");
+//        }
+//        long end=System.currentTimeMillis();
+//        System.out.println("抽奖完毕,用时:"+(end-start)/1000+"秒");
+        //FileUtil.writeToFile(buffer.toString(),"lootery","txt");
+        String lottery = FileUtil.readFileContent("2,6,11,12,19,29,6", "lootery");
+    }
+
+
+    public static int[] createBox(int size){
+        int[] arr=new int[size];
+        for(int i=0;i<arr.length;i++){
+            arr[i]=i+1;
+        }
+        return arr;
+    }
+
+
+    public static String getLooteryNumber(){
         int a,b;
         //声明一个数组盛抽取的号码
         int[] select=new int[6];
@@ -20,23 +44,16 @@ public class Lootery {
         //蓝色球抽奖
         b=(int) (Math.random()*blue.length+1);
 
-        System.out.print("双色球公布奖项:\n红色球部分:");
+        StringBuffer buffer = new StringBuffer();
         for(int i=0;i<select.length;i++){
-            if(i<(select.length-1)){
-                System.out.print(select[i]+",");
+            /*if(i<(select.length-1)){
+                buffer.append(select[i]+",");
             }else{
-                System.out.print(select[i]+"\n");
-            }
+                buffer.append(select[i]);
+            }*/
+            buffer.append(select[i]+",");
         }
-        System.out.print("蓝色球部分:"+b);
-    }
-
-
-    public static int[] createBox(int size){
-        int[] arr=new int[size];
-        for(int i=0;i<arr.length;i++){
-            arr[i]=i+1;
-        }
-        return arr;
+        buffer.append(b);
+        return buffer.toString();
     }
 }

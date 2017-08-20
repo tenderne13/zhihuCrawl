@@ -47,7 +47,7 @@
         ON t1.buildingId = t2.id
         )
         WHERE 1=1
-        and t2.objectId!=0 and t2.IsDelete=0
+        and t2.objectId!=0 and t1.IsDelete=0
     </select>
 
 </mapper>
