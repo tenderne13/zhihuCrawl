@@ -207,6 +207,7 @@ public class PrrayList<T> implements List<T> {
 
     public void add(int index, T element) {
         //RangeCheck(index);
+        AddRangeCheck(index);
         ensureSizeinner(size+1);
         int numMove=size-index;
         if(numMove>0)
@@ -215,6 +216,10 @@ public class PrrayList<T> implements List<T> {
         size++;
     }
 
+    private void AddRangeCheck(int index){
+        if(index<0 || index>size)
+            throw new IndexOutOfBoundsException("数组越界异常:"+index);
+    }
 
     public static void main (String[] str){
         PrrayList<String> list=new PrrayList<String>();
