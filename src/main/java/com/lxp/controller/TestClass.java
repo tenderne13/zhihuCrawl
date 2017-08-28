@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class TestClass extends HttpServlet{
     @Override
@@ -37,5 +39,18 @@ public class TestClass extends HttpServlet{
             String attr = ele.attr("data-id");
             System.out.println("dataId为："+attr);
         }
+    }
+
+    public static  void say(){
+        System.out.println("你好");
+    }
+
+
+    public static void main(String[] ar) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        String className=TestClass.class.getName();
+        Method say = TestClass.class.getMethod("say",null);
+        say.invoke(null);
+        System.out.println(className);
+        StringBuffer buffer=new StringBuffer();
     }
 }

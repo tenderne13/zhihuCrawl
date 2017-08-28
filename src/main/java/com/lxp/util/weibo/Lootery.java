@@ -5,14 +5,14 @@ import java.io.IOException;
 public class Lootery {
     public static void main(String[] args) throws IOException {
         StringBuffer buffer = new StringBuffer();
-//        long start = System.currentTimeMillis();
-//        for(int i=0;i<3000000;i++){
-//            buffer.append(getLooteryNumber()+"\n");
-//        }
-//        long end=System.currentTimeMillis();
-//        System.out.println("抽奖完毕,用时:"+(end-start)/1000+"秒");
+        long start = System.currentTimeMillis();
+        for(int i=0;i<3000;i++){
+            buffer.append(getLooteryNumber()+"\n");
+        }
+        long end=System.currentTimeMillis();
+        System.out.println("抽奖完毕,用时:"+(end-start)+"ms");
         //FileUtil.writeToFile(buffer.toString(),"lootery","txt");
-        String lottery = FileUtil.readFileContent("2,6,11,12,19,29,6", "lootery");
+        String lottery = FileUtil.readFileContent("24,16,15,21,33,25,11", "lootery");
     }
 
 

@@ -65,9 +65,9 @@ public class FileUtil {
 
             long end = System.currentTimeMillis();
             if(num==null){
-                System.out.println("最后抽奖结果为没中奖,用时："+(end-start)/1000+"s");
+                System.out.println("最后抽奖结果为没中奖,用时："+(end-start)+"ms");
             }else {
-                System.out.println("**********中奖了！！！中奖号码为:["+num+"],用时"+(end-start)/1000+"***********");
+                System.out.println("**********中奖了！！！中奖号码为:["+num+"],用时"+(end-start)+"ms***********");
             }
 
             return result;

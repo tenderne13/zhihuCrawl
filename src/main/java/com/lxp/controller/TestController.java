@@ -20,6 +20,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.net.InetAddress;
@@ -40,6 +41,15 @@ public class TestController {
 
     @Autowired
     public InstallationMapper installationMapper;
+
+
+    @RequestMapping("postStr")
+    @ResponseBody
+    public String postStr(String type){
+        System.out.println("类型为:"+type);
+        return type;
+    }
+
 
 
     @RequestMapping("es")
