@@ -418,4 +418,124 @@ public class Person {
                 ", houseStates='" + houseStates + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Person person = (Person) o;
+
+        if (id != null ? !id.equals(person.id) : person.id != null) return false;
+        if (householdid != null ? !householdid.equals(person.householdid) : person.householdid != null) return false;
+        if (addresscode != null ? !addresscode.equals(person.addresscode) : person.addresscode != null) return false;
+        if (reliationship != null ? !reliationship.equals(person.reliationship) : person.reliationship != null)
+            return false;
+        if (name != null ? !name.equals(person.name) : person.name != null) return false;
+        if (sex != null ? !sex.equals(person.sex) : person.sex != null) return false;
+        if (nation != null ? !nation.equals(person.nation) : person.nation != null) return false;
+        if (zjlx != null ? !zjlx.equals(person.zjlx) : person.zjlx != null) return false;
+        if (idcard != null ? !idcard.equals(person.idcard) : person.idcard != null) return false;
+        if (politicalstatus != null ? !politicalstatus.equals(person.politicalstatus) : person.politicalstatus != null)
+            return false;
+        if (education != null ? !education.equals(person.education) : person.education != null) return false;
+        if (workorschool != null ? !workorschool.equals(person.workorschool) : person.workorschool != null)
+            return false;
+        if (telephone != null ? !telephone.equals(person.telephone) : person.telephone != null) return false;
+        if (householdcategory != null ? !householdcategory.equals(person.householdcategory) : person.householdcategory != null)
+            return false;
+        if (householdstatus != null ? !householdstatus.equals(person.householdstatus) : person.householdstatus != null)
+            return false;
+        if (householdaddress != null ? !householdaddress.equals(person.householdaddress) : person.householdaddress != null)
+            return false;
+        if (liveaddress1 != null ? !liveaddress1.equals(person.liveaddress1) : person.liveaddress1 != null)
+            return false;
+        if (liveaddress2 != null ? !liveaddress2.equals(person.liveaddress2) : person.liveaddress2 != null)
+            return false;
+        if (liveaddress3 != null ? !liveaddress3.equals(person.liveaddress3) : person.liveaddress3 != null)
+            return false;
+        if (liveaddress4 != null ? !liveaddress4.equals(person.liveaddress4) : person.liveaddress4 != null)
+            return false;
+        if (liveaddress5 != null ? !liveaddress5.equals(person.liveaddress5) : person.liveaddress5 != null)
+            return false;
+        if (age != null ? !age.equals(person.age) : person.age != null) return false;
+        if (borndate != null ? !borndate.equals(person.borndate) : person.borndate != null) return false;
+        if (datafrom != null ? !datafrom.equals(person.datafrom) : person.datafrom != null) return false;
+        if (createtime != null ? !createtime.equals(person.createtime) : person.createtime != null) return false;
+        if (updatetime != null ? !updatetime.equals(person.updatetime) : person.updatetime != null) return false;
+        if (deadtime != null ? !deadtime.equals(person.deadtime) : person.deadtime != null) return false;
+        if (isdelete != null ? !isdelete.equals(person.isdelete) : person.isdelete != null) return false;
+        if (remark != null ? !remark.equals(person.remark) : person.remark != null) return false;
+        if (objectId != null ? !objectId.equals(person.objectId) : person.objectId != null) return false;
+        if (householdname != null ? !householdname.equals(person.householdname) : person.householdname != null)
+            return false;
+        if (streetId != null ? !streetId.equals(person.streetId) : person.streetId != null) return false;
+        if (streetName != null ? !streetName.equals(person.streetName) : person.streetName != null) return false;
+        if (communityId != null ? !communityId.equals(person.communityId) : person.communityId != null) return false;
+        if (communityName != null ? !communityName.equals(person.communityName) : person.communityName != null)
+            return false;
+        if (yardId != null ? !yardId.equals(person.yardId) : person.yardId != null) return false;
+        if (yardName != null ? !yardName.equals(person.yardName) : person.yardName != null) return false;
+        if (buildingName != null ? !buildingName.equals(person.buildingName) : person.buildingName != null)
+            return false;
+        if (buildingId != null ? !buildingId.equals(person.buildingId) : person.buildingId != null) return false;
+        if (unitId != null ? !unitId.equals(person.unitId) : person.unitId != null) return false;
+        if (houseId != null ? !houseId.equals(person.houseId) : person.houseId != null) return false;
+        if (newHouseholdId != null ? !newHouseholdId.equals(person.newHouseholdId) : person.newHouseholdId != null)
+            return false;
+        if (newPersonId != null ? !newPersonId.equals(person.newPersonId) : person.newPersonId != null) return false;
+        if (personStates != null ? !personStates.equals(person.personStates) : person.personStates != null)
+            return false;
+        return houseStates != null ? houseStates.equals(person.houseStates) : person.houseStates == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (householdid != null ? householdid.hashCode() : 0);
+        result = 31 * result + (addresscode != null ? addresscode.hashCode() : 0);
+        result = 31 * result + (reliationship != null ? reliationship.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (sex != null ? sex.hashCode() : 0);
+        result = 31 * result + (nation != null ? nation.hashCode() : 0);
+        result = 31 * result + (zjlx != null ? zjlx.hashCode() : 0);
+        result = 31 * result + (idcard != null ? idcard.hashCode() : 0);
+        result = 31 * result + (politicalstatus != null ? politicalstatus.hashCode() : 0);
+        result = 31 * result + (education != null ? education.hashCode() : 0);
+        result = 31 * result + (workorschool != null ? workorschool.hashCode() : 0);
+        result = 31 * result + (telephone != null ? telephone.hashCode() : 0);
+        result = 31 * result + (householdcategory != null ? householdcategory.hashCode() : 0);
+        result = 31 * result + (householdstatus != null ? householdstatus.hashCode() : 0);
+        result = 31 * result + (householdaddress != null ? householdaddress.hashCode() : 0);
+        result = 31 * result + (liveaddress1 != null ? liveaddress1.hashCode() : 0);
+        result = 31 * result + (liveaddress2 != null ? liveaddress2.hashCode() : 0);
+        result = 31 * result + (liveaddress3 != null ? liveaddress3.hashCode() : 0);
+        result = 31 * result + (liveaddress4 != null ? liveaddress4.hashCode() : 0);
+        result = 31 * result + (liveaddress5 != null ? liveaddress5.hashCode() : 0);
+        result = 31 * result + (age != null ? age.hashCode() : 0);
+        result = 31 * result + (borndate != null ? borndate.hashCode() : 0);
+        result = 31 * result + (datafrom != null ? datafrom.hashCode() : 0);
+        result = 31 * result + (createtime != null ? createtime.hashCode() : 0);
+        result = 31 * result + (updatetime != null ? updatetime.hashCode() : 0);
+        result = 31 * result + (deadtime != null ? deadtime.hashCode() : 0);
+        result = 31 * result + (isdelete != null ? isdelete.hashCode() : 0);
+        result = 31 * result + (remark != null ? remark.hashCode() : 0);
+        result = 31 * result + (objectId != null ? objectId.hashCode() : 0);
+        result = 31 * result + (householdname != null ? householdname.hashCode() : 0);
+        result = 31 * result + (streetId != null ? streetId.hashCode() : 0);
+        result = 31 * result + (streetName != null ? streetName.hashCode() : 0);
+        result = 31 * result + (communityId != null ? communityId.hashCode() : 0);
+        result = 31 * result + (communityName != null ? communityName.hashCode() : 0);
+        result = 31 * result + (yardId != null ? yardId.hashCode() : 0);
+        result = 31 * result + (yardName != null ? yardName.hashCode() : 0);
+        result = 31 * result + (buildingName != null ? buildingName.hashCode() : 0);
+        result = 31 * result + (buildingId != null ? buildingId.hashCode() : 0);
+        result = 31 * result + (unitId != null ? unitId.hashCode() : 0);
+        result = 31 * result + (houseId != null ? houseId.hashCode() : 0);
+        result = 31 * result + (newHouseholdId != null ? newHouseholdId.hashCode() : 0);
+        result = 31 * result + (newPersonId != null ? newPersonId.hashCode() : 0);
+        result = 31 * result + (personStates != null ? personStates.hashCode() : 0);
+        result = 31 * result + (houseStates != null ? houseStates.hashCode() : 0);
+        return result;
+    }
 }

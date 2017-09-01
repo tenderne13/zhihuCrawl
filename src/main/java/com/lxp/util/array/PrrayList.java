@@ -16,9 +16,7 @@ public class PrrayList<T> implements List<T> {
         return size==0;
     }
 
-    public boolean contains(Object o) {
-        return false;
-    }
+
 
     public Iterator<T> iterator() {
         return null;
@@ -56,13 +54,7 @@ public class PrrayList<T> implements List<T> {
         return null;
     }
 
-    public int indexOf(Object o) {
-        return 0;
-    }
 
-    public int lastIndexOf(Object o) {
-        return 0;
-    }
 
     public ListIterator<T> listIterator() {
         return null;
@@ -221,13 +213,52 @@ public class PrrayList<T> implements List<T> {
             throw new IndexOutOfBoundsException("数组越界异常:"+index);
     }
 
+
+    public boolean contains(Object o) {
+        return indexOf(o)>=0;
+    }
+
+
+    public int indexOf(Object o) {
+        if(o==null){
+            for(int i=0;i<size;i++){
+                if(elementData[i]==null)
+                    return i;
+            }
+        }else{
+            for(int i=0;i<size;i++){
+                if(o.equals(elementData[i]))
+                    return i;
+            }
+        }
+        return -1;
+    }
+
+    public int lastIndexOf(Object o) {
+        if(o==null){
+            for(int i=size-1;i>=0;i--){
+                if(elementData[i]==null)
+                    return i;
+            }
+        }else{
+            for(int i=size-1;i>=0;i--){
+                if(o.equals(elementData[i]))
+                    return i;
+            }
+        }
+        return -1;
+    }
+
+
     public static void main (String[] str){
         PrrayList<String> list=new PrrayList<String>();
         for(int i=0;i<5;i++){
             list.add("李小朋["+i+"]");
         }
         System.out.println("list为:"+list+",\nlist大小为:"+list.size());
-        list.add(5,"贾欣琪");
+        list.add(1,"贾欣琪");
+        list.add(4,"贾欣琪");
         System.out.println("list为:"+list+",\nlist大小为:"+list.size());
+        System.out.println(list.lastIndexOf("贾欣琪"));
     }
 }
