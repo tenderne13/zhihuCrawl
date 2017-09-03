@@ -53,14 +53,97 @@ public class PlinkedList<E> implements List<E>,Deque<E>{
         size++;
     }
 
+    @Override
+    public boolean remove(Object o) {
+        if(o==null){
+            Node<E> node=first;
+            for(node=first;node!=null;node=node.next){
+                if(node.e==null){
+                    //移除这个节点
+                    unlink(node);
+                    return true;
+                }
+            }
+        }else{
+            Node<E> node=first;
+            for(node=first;node!=null;node=node.next){
+                if(o.equals(node.e)){
+                    //移除方法
+                    unlink(node);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    //移除链表中的一个元素
+    private void unlink(Node<E> node){
+        //E e = node.e;
+        Node<E> prev = node.prev;
+        Node<E> next = node.next;
+        if(prev==null){
+            first=next;
+            //next.prev=null;
+        }else{
+            prev.next=next;
+            node.prev=null;
+        }
+
+        if(next==null){
+            last=prev;
+            //prev.next=null;
+        }else{
+            next.prev=prev;
+            node.next=null;
+        }
+        node.e=null;
+        size--;
+        //System.out.println(prev.next);
+    }
+
+
+    @Override
+    public E get(int index) {
+        rangeCheck(index);
+
+        /* 废弃，用二分法查找
+        Node<E> node=first;
+        for(int i=0;i<index;i++){
+            node=node.next;
+        }
+        */
+        Node<E> node=null;
+        if(index<size>>1){
+            node=first;
+            for(int i=0;i<index;i++){
+                node=node.next;
+            }
+        }else{
+            node=last;
+            for(int i=size-1;i>index;i--){
+                node=node.prev;
+            }
+        }
+
+        return node.e;
+    }
+
+    private void rangeCheck(int index){
+        if(index<0 || index>(size-1))
+            throw new  IndexOutOfBoundsException("index越界" + index);
+    }
 
 
     public static void main(String[] arc){
-       List<String> list= new PlinkedList<String>();
-       list.add("1");
-       list.add("2");
-       list.add("3");
-       System.out.println(list);
+       int i,j;
+       i=0;
+       j=i++;
+       i=++i;
+       System.out.println(j+"m"+i);
+       new LinkedList<String>();
+       new ArrayDeque<String>();
     }
 
     public static int indexFor(int h,int length) throws IOException{
@@ -208,10 +291,7 @@ public class PlinkedList<E> implements List<E>,Deque<E>{
     }
 
 
-    @Override
-    public boolean remove(Object o) {
-        return false;
-    }
+
 
     @Override
     public boolean containsAll(Collection<?> c) {
@@ -243,10 +323,7 @@ public class PlinkedList<E> implements List<E>,Deque<E>{
 
     }
 
-    @Override
-    public E get(int index) {
-        return null;
-    }
+
 
     @Override
     public E set(int index, E element) {
