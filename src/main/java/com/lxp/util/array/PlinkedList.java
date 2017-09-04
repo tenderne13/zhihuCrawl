@@ -9,7 +9,7 @@ public class PlinkedList<E> implements List<E>,Deque<E>{
 
     private Node<E> first;
     private Node<E> last;
-    private int size;
+    private int size=0;
 
     //node类，内部使用
     private static class Node<E>{
@@ -144,6 +144,7 @@ public class PlinkedList<E> implements List<E>,Deque<E>{
        System.out.println(j+"m"+i);
        new LinkedList<String>();
        new ArrayDeque<String>();
+       new TreeMap<String,Object>();
     }
 
     public static int indexFor(int h,int length) throws IOException{
